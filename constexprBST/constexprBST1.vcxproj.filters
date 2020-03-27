@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="BTree">
+      <UniqueIdentifier>{a5e279c0-6b35-49e3-9b7d-ac11a2096892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support">
+      <UniqueIdentifier>{9ed3198b-b1e4-4287-a080-725fc76e1251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FBTree">
+      <UniqueIdentifier>{c955d124-7f3f-41b2-aa2e-3700ccccd1f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConsoleApplication6.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MacrosLoop.tt">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="MacrosTT.tt">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Array.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTree.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreatorOld.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreator.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="ZeroAll.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="OutSupport.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckType.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSupport.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtArray.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="CTCurrentNode.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindAll.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindBetween.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindFirstList.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTHelper.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTLevel.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeClone.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeWrap.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePrint.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticFor.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="CTOutPlaces.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="FastArrayCreate.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreatorNode.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MacrosLoop.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="MacrosTT.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,49 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".h" #>
+namespace CP
+{
+<#
+//using SPair = Tuple<string, string>;
+
+var properties = new List<Tuple<string,string>>()
+{ 
+Tuple.Create("yyy", "Make"), Tuple.Create("kk", "Model") 
+//new Tuple<string,string>("yyy", "Make"), 
+//new Tuple<string,string>("kk","Model") 
+}; 
+foreach (var property in properties) 
+{ //Write(property.Item1);WriteLine(property.Item2); 
+}; 
+#> 
+<#=If2("WW_")#>
+<#=If4("XX_","YY_")#>
+
+#define IFDEF2(m,a,b) m##_(a,b)//ifdf  
+#define IFDEF4(m,n,a,b,c,d) m##n##_(a,b,c,d) 
+} 
+<#+ 
+ private string If2(string s)
+ {//return "aaa"+System.Environment.NewLine+"bbb"; 
+ string res ="#ifdef " + s + "\r\n\t";
+ res +="#define " + s +"_(a,b) a"+ "\r\n";
+ res +="#else\r\n\t";
+ res +="#define " + s +"_(a,b) b"+ "\r\n";
+ res +="#endif\r\n";
+ return res; 
+ }
+
+ private string If4(string s,string S)
+ {
+ string res = "#if defined(" + s + ") && defined(" + S + ")\r\n\t";
+ res += "#define " +s+S+"_(a,b,c,d) a"+"\r\n";
+ res += "#elif defined("+s+ ")\r\n\t";
+ res +="#define " +s+S+"_(a,b,c,d) b"+"\r\n";
+ res += "#elif defined("+S+ ")\r\n\t";
+ res +="#define " +s+S+"_(a,b,c,d) c"+"\r\n";
+ res +="#else\r\n\t";
+ res +="#define " +s+S+"_(a,b,c,d) d"+"\r\n";
+ res +="#endif\r\n";
+ return res; 
+ }
+ #>

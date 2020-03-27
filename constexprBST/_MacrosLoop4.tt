@@ -1,0 +1,30 @@
+<#@ template language="C#" #>
+<#@ output extension=".cpp" #>
+<#int I=15,D=5; #>
+#define _Args(...) __VA_ARGS__
+#define STRIP_PARENS(X) X
+#define PASS_PARAMETERS(X) STRIP_PARENS( _Args X )
+//BOOST_PP_SEQ_FOR_EACH_R(r, macro, data, seq)
+#define EXPAND(x) x
+#define CONCATENATE(arg1, arg2) CONCATENATE1(arg1, arg2)
+#define CONCATENATE1(arg1, arg2) arg1##arg2
+#define FOR_EACH_1(what, x, ...) what(PASS_PARAMETERS(x))
+<#for(int i=2; i<=I; i++) {#>
+#define FOR_EACH_<#= i#>(what, x, ...)\
+what(PASS_PARAMETERS(x)) FOR_EACH_<#=i-1#>(what, __VA_ARGS__)
+<#}#>
+#define FOR_EACH_ARG_N(\
+ <#for(int i=1; i<=I; i++) {#>_<#=i#>, <#if (((i%D))==0) WriteLine("\\"); }#> \
+N,...) N
+#define FOR_EACH_NARG(...) EXPAND(FOR_EACH_ARG_N(__VA_ARGS__, \
+ <#for(int i=I; i>0; i--) {#><#=i#>, <#if ((((i-1)%D))==0) WriteLine("\\");}#>0))
+#define FOR_EACH(what,...) \
+EXPAND(CONCATENATE(FOR_EACH_,FOR_EACH_NARG(__VA_ARGS__))(what, __VA_ARGS__)) 
+
+ /* static void Foo(){ <# for(int i=0; i<=4; i++) 
+{ #> std::cout << "Hello World<#= i#>!\n"; 
+<# } #> }
+static void Foo1 () { <# for(int i=0; i<=2; i++) 
+{ #> std::cout << "Hello World<#= i#>!\n"; <#
+}#> } */ /* //PopIndent(); 
+<# int ii = 10; while (ii-- > 0) { Write((ii.ToString())); }#> */ 

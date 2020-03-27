@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="MacrosLoop.h" />
+    <ClInclude Include="MacrosTT.h" />
+    <ClInclude Include="CTCurrentNode.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindAll.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindBetween.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTFindFirstList.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTHelper.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTLevel.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CTOutPlaces.h">
+      <Filter>FBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTree.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreatorOld.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreatorNode.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCreator.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="ZeroAll.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="OutSupport.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckType.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSupport.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticFor.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="FastArrayCreate.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePrint.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeWrap.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeClone.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtArray.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>BTree</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MacrosLoop.tt" />
+    <None Include="MacrosTT.tt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="BTree">
+      <UniqueIdentifier>{b8439c29-378d-4aa4-bdd7-dfa050bf0f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support">
+      <UniqueIdentifier>{711813b4-186d-41d8-a8d1-474e888663c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FBTree">
+      <UniqueIdentifier>{669f45cc-8b77-4b19-b0ce-43ea2e48de04}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="constexprBST.cpp" />
+  </ItemGroup>
+</Project>

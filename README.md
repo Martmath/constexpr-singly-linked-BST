@@ -1,5 +1,4 @@
 # constexpr-singly-linked-BST
-constexpr binary search tree
 Hi all - I'd like to introduce my version of singly linked constexpr binary search tree. It has tested on VS2019(v142 msvc)/16.3.6/std:c++latest
 environment.
 I have a little bit of experience writing scripts for cad in VBA/C# and I haven't worked in real production with srcugile/hoverboards (&smoothies?).

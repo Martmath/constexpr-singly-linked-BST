@@ -16,9 +16,9 @@
 #include "TreePrint.h"
 #include "StaticFor.h"
 #include "FastArrayCreate.h"
+#include "ExtArray.h"
 
-
-enum  varCreate { autoAlgCreate = 0, autoAlgCreateOld, forNode,trCreator,trCreatorLim, trCreatorOld, trCreatorLimOld} ;
+enum  varCreate { autoAlgCreate = 0, autoAlgCreateOld, forNode,trCreator,trCreatorLim, trCreatorOld, trCreatorLimOld,trZero} ;
 
 template<const auto & F, const auto & Tree, auto C, template <class, auto> class TA = array> struct TreeWrapNode
 {
@@ -26,7 +26,10 @@ template<const auto & F, const auto & Tree, auto C, template <class, auto> class
 
 	static constexpr  auto res() 
 	{
-		return TreeWrap<F, nodeArray, varCreate::forNode,3,CZero,TA>{};
+		if constexpr  (getTInputTemplate<decltype(nodeArray)>::Size)
+			return TreeWrap<F, nodeArray, varCreate::forNode,3,CZero,TA>{};
+		else 
+			return TreeWrap<F, nodeArray, varCreate::trZero, 3, CZero, TA>{};
 	}
 };
 
@@ -43,6 +46,19 @@ struct TreeWrap
 	using TIn = typename getTInputTemplate<TT>::Ctin;
 
 	template <class T1, auto N1> using TAtemp = TmA<T1, N1>;
+
+	static constexpr TAtemp<TIn, 0> AZero{};
+
+
+	#define CHECKZERO(Ret) if constexpr (sameZ<decltype(Tree)>()) return AZero; else {return Ret;}
+	#undef CHECKZERO
+	
+	template<const auto F>	static constexpr  auto
+	RunCheckZero()
+	{
+		if constexpr (sameZ<decltype(Tree)>())		return AZero;
+		else { return F(); }
+	};
 
 	//Creating a tree using two algorithms. For numeric types and types with comparison operators.
 	static constexpr auto getTree()
@@ -132,7 +148,14 @@ struct TreeWrap
 								}
 								else
 								{
-									return treeCreatorLimOld<F, TIn, mA.size(), TAtemp, mA>();
+									if constexpr (Var == varCreate::trCreatorOld)
+									{
+										return treeCreatorLimOld<F, TIn, mA.size(), TAtemp, mA>();
+									}
+									else
+									{
+										return CZero{};
+									}
 								}
 							}
 						}
@@ -186,72 +209,108 @@ struct TreeWrap
 	static void print()
 	{
 		staticFor<TwrpOut<TreeTest, LenOut>::template R, findNodeMLevel(TreeTest)>();
-	};		
+	};	
+
 	//find values using the initializing key function from the current class instance &
 	//the left and right val. Boundary include
 	template<TRes l, TRes r, template <class, auto> class TA = TAtemp>
-	static constexpr  auto findBetween() {
-		return ::findBetween<F, Tree, l, r, TA>();
+	static constexpr  auto findBetween() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findBetween<F, Tree, l, r, TA>();
 	};
+
 	//find all values using the predicate (F)
-	template<auto F, template <class, auto> class TA = TAtemp>
-	static constexpr  auto findAll()	{
-		return ::findAll<F, Tree, TA>();
+	template<const auto F, template <class, auto> class TA = TAtemp>
+	static constexpr  auto findAll()	
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findAll<F, Tree, TA>();		
 	};
+
 	//get a values from node use the specified key
 	template<TRes C, template <class, auto> class TA = TAtemp>
 	static constexpr  auto findCurrentNode()
 	{
-		return ::findCurrentNode<F, Tree,C, TA>();
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findCurrentNode<F, Tree, C, TA>();
 	};
+
 	//get a subtree for the specified key
 	template<TRes C, template <class, auto> class TA = TAtemp>
 	static constexpr  auto findCurrentNodeTree() 
 	{
-		return   TreeWrapNode<F, Tree, C>::res(); 
+		return   TreeWrapNode<F, Tree, C,TA>::res(); //check to nullable inside res()
 		//treeCreatorNode<F, ::findCurrentNode<F, Tree, C, TA>()>();
 		//return ::findCurrentNode<F, Tree, C, TA>();
 	};
+
 	//get first items from nodes(list) at some level (C - Level, L - Key Length)
 	template<TRes C, template <class, auto> class TA = TAtemp>
-	static constexpr  auto findLevelFirst() {
-		return ::findLevelFirst<Tree, C, TA>();
+	static constexpr  auto findLevelFirst() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findLevelFirst<Tree, C, TA>();
 	};
+
 	//get values from node list
 	template<TRes C, template <class, auto> class TA = TAtemp>
-	static constexpr  auto findLevelAll() {
-		return ::findLevelA<F, Tree, C, TA>();
+	static constexpr  auto findLevelAll() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findLevelA<F, Tree, C, TA>();
 	};
+
 	//get values from node list
 	template<TRes C, template <class, auto> class TA = TAtemp>
-	static constexpr  auto findFirstList() {
-		return ::findFirstList<F, Tree, C, TA>();
+	static constexpr  auto findFirstList() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findFirstList<F, Tree, C, TA>();
 	};
+
 	//get place first items from nodes at some level (C - Level, L - Key Length)
 	template<TRes C, TRes L=3, template <class, auto> class TA = TAtemp>
 	static constexpr  auto findLevelShift() 
 	{
-		return ::findLevelPlacesNOTUseHelperClass<Tree, C,L, TA>();
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findLevelPlacesNOTUseHelperClass<Tree, C,L, TA>();
 	};
+
 	//get places and first item from nodes at some level (C)
 	template<TRes C, template <class, auto> class TA = TAtemp>
 	static constexpr  auto findLevelItemsaPlaces() 
 	{
-		return ::findLevelItemsaPlaces<TreeTest, C, TA>();
+		if constexpr (sameZ<decltype(Tree)>()) 	return AZero;
+		else	return ::findLevelItemsaPlaces<TreeTest, C, TA>();
 	};
+
 	//get tree max Level
-	static constexpr  size_t maxLevel() {return ::findNodeMLevel(Tree);};
+	static constexpr  size_t maxLevel() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return 0;
+		else	return ::findNodeMLevel(Tree);
+	};
+
 	//get tree nodes count
-	static constexpr  size_t nodeCount() {return ::findNodeCount(Tree);};
+	static constexpr  size_t nodeCount() 
+	{
+		if constexpr (sameZ<decltype(Tree)>()) 	return 0;
+		else	return ::findNodeCount(Tree);
+	};
+
 	//check tree contains item by key
-	static constexpr  bool contains(TRes key) { return ::contains<F>(Tree,key); };
+	static constexpr  bool contains(TRes key) 
+	{ 
+		if constexpr (sameZ<decltype(Tree)>()) 	return 0;
+		else	return ::contains<F>(Tree,key); 
+	};
 
 	friend ostream& operator<< <F, mA, Var, LenOut, TUnpackArray, TmA> (ostream& os, const TreeWrap<F, mA,Var, LenOut, TUnpackArray, TmA>& a);
 	/*{
 		os << a.print_();
 		return os;
 	};*/
-
 };
 
 template<const auto & F, const auto & mA, varCreate Var = varCreate::autoAlgCreate, size_t LenOut = 3, 
@@ -272,17 +331,22 @@ template<const auto & F, const auto & mA, varCreate Var, size_t Len,
 	return TreeWrap<F, mA, Var, Len, CZero, TA>{};
 };
 
-template<const auto & F, const auto & mA, varCreate Var, size_t Len,class T>
+template<const auto & F, const auto & mA, varCreate Var, size_t Len, class T, template <class, auto> class TA = array>
 constexpr auto wrapperTreeFactoryHelper(const T& u)
 {
 	return TreeWrap<F, mA, Var, Len, CZero, array>{};
 };
 
-template<const auto & F, const auto & mA,varCreate Var,size_t Len>
+template<const auto & F, const auto & mA,varCreate Var,size_t Len, template <class, auto> class TA = array>
 constexpr auto wrapperTreeFactory() 
 {
-	return wrapperTreeFactoryHelper<F, mA, Var, Len>(mA);
+	return TreeWrap<F, mA, Var, Len, CZero, TA>{};
+	
+	//return wrapperTreeFactoryHelper<F, mA, Var, Len>(mA);
 };
+
+
+
 
 template <const auto & _F, const auto & _mA, auto _Var, size_t _LenOut,
 class _TUnpackArray, template <class, auto> class _TmA>
@@ -294,3 +358,24 @@ struct getTInputTemplate<TreeWrap<_F, _mA, _Var, _LenOut, _TUnpackArray, _TmA>>
 	static constexpr auto LenOut = _LenOut;
 	template <class T1, auto N1> using TAR = _TmA<T1, N1>;
 };
+
+template<const auto & T0, const auto &... T> struct arrPack
+{
+	static constexpr array<Test, sizeof...(T) + 1> WW{ T0,T... };
+
+	static constexpr auto tmpArr() {
+		return array<Test, sizeof...(T) + 1>{ T0, T... };
+	}
+
+	template<const auto & F> static constexpr auto TrWrap() {
+		return TreeWrap<F, WW, varCreate::autoAlgCreate, 3, getTInputTemplate<clearType_t<decltype(WW)>>>();
+	}
+};
+
+static constexpr Test E0{ 7 }; static constexpr Test E1{ 12 }; static constexpr Test E2{ 15 };
+static constexpr Test E3{ 5 }; static constexpr Test E4{ 3 }; static constexpr Test E5{ 0 };
+
+static constexpr arrPack<E0, E1, E2, E3, E4, E5> checkArrWrp{};
+static constexpr auto packArr = decltype(checkArrWrp)::tmpArr();
+constexpr auto vv1 = decltype(checkArrWrp)::TrWrap<getKeyFn>();
+using VV1 = decltype(vv1);

@@ -42,7 +42,14 @@ constexpr auto CreateTreePlaceHelper(const C& D, size_t CurrentPlace = 4, size_t
 template<size_t Level = 0, class C >
 constexpr auto CreateTreePlace(const C& D,  size_t Len = 3)
 {
-	return CreateTreePlaceHelper(D, firstShift(0, findNodeMLevel(D), Len), findNodeMLevel(D),Len);
+	if constexpr (sameZ<C>())
+	{
+		return CZero{};
+	}
+	else 
+	{
+		return CreateTreePlaceHelper(D, firstShift(0, findNodeMLevel(D), Len), findNodeMLevel(D), Len);
+	}
 }
 
 

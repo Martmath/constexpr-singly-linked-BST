@@ -93,20 +93,21 @@ template <template <auto, auto,auto, class, class, class, auto, auto, auto, auto
 
 
 template <class C>
-constexpr bool sameZ() { return std::is_same<C, CZero>(); }
+constexpr bool sameZ() {
+	return std::is_same<clearType_t<C>, CZero>(); }
 
 template <class C0, class C1 >
 constexpr bool sameZ()
 {
-	return std::is_same<C0, CZero>() && std::is_same<C1, CZero>();
+	return std::is_same<clearType_t<C0>, CZero>() && std::is_same<clearType_t<C1>, CZero>();
 }
 
 template <class C0, class C1, class C2, class C3, class... C>
 constexpr bool sameZ()
 {
-	return std::is_same<C0, CZero>() && std::is_same<C1, CZero>() &&
-		std::is_same<C2, CZero>() && std::is_same<C3, CZero>() &&
-		((std::is_same<C, CZero>()) &&...);
+	return std::is_same<clearType_t<C0>, CZero>() && std::is_same<clearType_t<C1>, CZero>() &&
+		std::is_same<clearType_t<C2>, CZero>() && std::is_same<clearType_t<C3>, CZero>() &&
+		((std::is_same<clearType_t<C>, CZero>()) &&...);
 }
 
 template <auto... T>
@@ -115,7 +116,7 @@ constexpr bool sameZ() { return ((T == 0) &&...); }
 template <class C0, class C1, class C2, auto... T>
 constexpr bool sameZ()
 {
-	return ((std::is_same<C0, CZero>()) && (std::is_same<C1, CZero>()) && (std::is_same<C2, CZero>())) &&
+	return ((std::is_same<clearType_t<C0>, CZero>()) && (std::is_same<clearType_t<C1>, CZero>()) && (std::is_same<clearType_t<C2>, CZero>())) &&
 		(sameZ<T...>());
 };
 

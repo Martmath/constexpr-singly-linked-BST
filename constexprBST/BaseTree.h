@@ -182,7 +182,7 @@ constexpr size_t findNodeMLevel(R t)
 	}
 	else
 	{
-		if constexpr (isTN <R>::it() != tnZero)
+		if constexpr (!(sameZ<R>()||(isTN <R>::it() == tnZero)))
 		{
 			if (findNodeMLevel(t.left) > findNodeMLevel(t.right))
 				return findNodeMLevel(t.left) + 1;

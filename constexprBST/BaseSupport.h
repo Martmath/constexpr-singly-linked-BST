@@ -14,7 +14,15 @@ using namespace std;
 #define I_1 G1 //IntData1
 #define I_S IS //StrData
 
-struct CZero {};
+struct CZero 
+{
+
+	friend ostream& operator<<(ostream& os, const CZero& dt) 
+	{
+		os << "invenisti continnum mea iuvenes amicus";
+		return os;
+	}
+};
 
 #pragma region CheckVCVersion
 #if   defined(_MSVC_LANG) &&(_MSVC_LANG<=201703)
